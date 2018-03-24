@@ -93,7 +93,7 @@ public class News {
 
     @Override
     public String toString() {
-        return "News{" +
+        return "ReplyAndComment{" +
                 "newsId=" + newsId +
                 ", pictureID=" + pictureID +
                 ", newsTatle='" + newsTatle + '\'' +

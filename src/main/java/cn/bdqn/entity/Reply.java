@@ -1,5 +1,7 @@
 package cn.bdqn.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 /**
@@ -16,25 +18,25 @@ public class Reply {
 回复数	replyCount	int			FALSE	FALSE	FALSE
     *
     * */
-    private int replyId ,discussId , replyCount;
+    private int replyId ,discussId ,userid;
     private String replyConTent;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     private CommodityComment commodityComment;
 
     public Reply() {
     }
 
-    public Reply(int replyId, int discussId, int replyCount, String replyConTent, Date updateTime, CommodityComment commodityComment) {
-        this.replyId = replyId;
-        this.discussId = discussId;
-        this.replyCount = replyCount;
-        this.replyConTent = replyConTent;
-        this.updateTime = updateTime;
-        this.commodityComment = commodityComment;
-    }
-
-    public CommodityComment getCommodityComment() {
-        return commodityComment;
+    @Override
+    public String toString() {
+        return "Reply{" +
+                "replyId=" + replyId +
+                ", discussId=" + discussId +
+                ", userid=" + userid +
+                ", replyConTent='" + replyConTent + '\'' +
+                ", updateTime=" + updateTime +
+                ", commodityComment=" + commodityComment +
+                '}';
     }
 
     public int getReplyId() {
@@ -53,12 +55,12 @@ public class Reply {
         this.discussId = discussId;
     }
 
-    public int getReplyCount() {
-        return replyCount;
+    public int getUserid() {
+        return userid;
     }
 
-    public void setReplyCount(int replyCount) {
-        this.replyCount = replyCount;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getReplyConTent() {
@@ -77,15 +79,11 @@ public class Reply {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "Reply{" +
-                "replyId=" + replyId +
-                ", discussId=" + discussId +
-                ", replyCount=" + replyCount +
-                ", replyConTent='" + replyConTent + '\'' +
-                ", updateTime=" + updateTime +
-                ", commodityComment=" + commodityComment +
-                '}';
+    public CommodityComment getCommodityComment() {
+        return commodityComment;
+    }
+
+    public void setCommodityComment(CommodityComment commodityComment) {
+        this.commodityComment = commodityComment;
     }
 }

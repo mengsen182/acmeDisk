@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.bdqn.dao.ReplyAndComment.ReplyAndCommentMapper">
+    <resultMap id="replyMap" type="Reply">
+        <id property="replyId" column="replyId"/>
+        <result property="discussId" column="discussId"/>
+
+        <result property="replyConTent" column="replyConTent"/>
+        <result property="updateTime" column="updateTime"/>
+    </resultMap>
+    <resultMap id="commMap" type="CommodityComment">
+        <id property="discussId" column="discussId"/>
+        <association property="user" javaType="TUser">
+            <id property="userId" column="userId"/>
+            <result property="userNick" column="userNick"/>
+        </association>
+    </resultMap>
+    <resultMap id="userMap" type="TUser">
+        <id property="userId" column="userId"/>
+    </resultMap>
+    <!--<resultMap id="voMap" type="cn.bdqn.vo.queryAll">-->
+        <!--<association property="commodityComment" resultMap="commMap"></association>-->
+        <!--<association property="Tuser" resultMap="userMap"/>-->
+     <!--<association property="reply" resultMap="replyMap"/>-->
+    <!--</resultMap>-->
+<select id="queryAll" resultMap="commMap">
+    /*SELECT c.*,r.*,t.*
+    FROM commoditycomment c ,reply r,tuser t
+    WHERE  c.userid=t.userid AND r.discussId=c.discussId  ORDER BY createTime DESC*/
+    SELECT c.*,t.userNick
+FROM commoditycomment c ,tuser t
+WHERE  c.userid=t.userid    ORDER BY createTime DESC
+</select>
+    <!--查看好评,索引为1的字段-->
+    <select id="queryGood" resultMap="commMap">
+        SELECT c.* ,t.userNick FROM  commoditycomment c , tuser t WHERE c.userid=t.userid AND c.selectid=1 order by createTime DESC
+
+    </select>
+    <!--查看中评,索引为2的字段-->
+    <select id="queryZhong" resultMap="commMap">
+        SELECT c.* ,t.userNick FROM  commoditycomment c , tuser t WHERE c.userid=t.userid AND c.selectid=2 order by createTime DESC
+
+    </select>
+    <!--查看差评,索引为3的字段-->
+    <select id="queryCha" resultMap="commMap">
+        SELECT c.* ,t.userNick FROM  commoditycomment c , tuser t WHERE c.userid=t.userid AND c.selectid=3 order by createTime DESC
+
+    </select>
+    <!--查看好评的数量, 索引为1-->
+    <select id="queryGoodCount" resultType="integer">
+        SELECT COUNT(*) FROM commoditycomment WHERE selectid=1
+    </select>
+    <!--查看中评的数量, 索引为2-->
+    <select id="queryZhongCount" resultType="integer">
+        SELECT COUNT(*) FROM commoditycomment WHERE selectid=2
+    </select>
+    <!--查看差评的数量, 索引为3-->
+    <select id="queryChaCount" resultType="integer">
+        SELECT COUNT(*) FROM commoditycomment WHERE selectid=3
+    </select>
+    <!--查看全部评论的数量-->
+    <select id="queryAllCount" resultType="integer">
+        SELECT COUNT(*) FROM commoditycomment
+    </select>
+    <!--查询前五位评论的用户userNick-->
+    <select id="queryFive" resultMap="commMap">
+        SELECT c.*,t.userNick FROM commoditycomment c, tuser t where discussId &lt;=5
+    </select>
+    <!--<insert id="add" parameterType=""-->
+<insert id="add" parameterType="CommodityComment">
+    INSERT INTO commodityComment VALUES(NULL,#{commodityID},#{userid},#{discussName},0,#{createTime},#{discussCount},#{selectid})
+
+</insert>
+    <update id="updateDeleteNews" parameterType="CommodityComment">
+        UPDATE commodityComment set selectid=5 where discussId=#{discussId}
+    </update>
+</mapper>

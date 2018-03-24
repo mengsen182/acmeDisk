@@ -1,6 +1,6 @@
 package cn.bdqn.entity;
 
-import java.util.Date;
+import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * Created by samsung on 2018/3/17.
@@ -20,26 +20,14 @@ public class CommodityComment {
     *
     *
     * */
-    private int discussId , commodityID ,userid , stitue ,discussCount;
-    private String discussName;
-    private Date createTime;
+    private int discussId , commodityID ,userid , stitue ;
+    private String discussName,discussCount;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private String  createTime;
     private TUser user;
     private Commodity commodity;
 
-    public CommodityComment() {
-    }
-
-    public CommodityComment(int discussId, int commodityID, int userid, int stitue, int discussCount, String discussName, Date createTime, TUser user, Commodity commodity) {
-        this.discussId = discussId;
-        this.commodityID = commodityID;
-        this.userid = userid;
-        this.stitue = stitue;
-        this.discussCount = discussCount;
-        this.discussName = discussName;
-        this.createTime = createTime;
-        this.user = user;
-        this.commodity = commodity;
-    }
+    private int selectid;
 
     @Override
     public String toString() {
@@ -48,28 +36,13 @@ public class CommodityComment {
                 ", commodityID=" + commodityID +
                 ", userid=" + userid +
                 ", stitue=" + stitue +
-                ", discussCount=" + discussCount +
                 ", discussName='" + discussName + '\'' +
-                ", createTime=" + createTime +
+                ", discussCount='" + discussCount + '\'' +
+                ", createTime='" + createTime + '\'' +
                 ", user=" + user +
                 ", commodity=" + commodity +
+                ", selectid=" + selectid +
                 '}';
-    }
-
-    public TUser getUser() {
-        return user;
-    }
-
-    public void setUser(TUser user) {
-        this.user = user;
-    }
-
-    public Commodity getCommodity() {
-        return commodity;
-    }
-
-    public void setCommodity(Commodity commodity) {
-        this.commodity = commodity;
     }
 
     public int getDiscussId() {
@@ -104,14 +77,6 @@ public class CommodityComment {
         this.stitue = stitue;
     }
 
-    public int getDiscussCount() {
-        return discussCount;
-    }
-
-    public void setDiscussCount(int discussCount) {
-        this.discussCount = discussCount;
-    }
-
     public String getDiscussName() {
         return discussName;
     }
@@ -120,12 +85,43 @@ public class CommodityComment {
         this.discussName = discussName;
     }
 
-    public Date getCreateTime() {
+    public String getDiscussCount() {
+        return discussCount;
+    }
+
+    public void setDiscussCount(String discussCount) {
+        this.discussCount = discussCount;
+    }
+
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
+    public TUser getUser() {
+        return user;
+    }
+
+    public void setUser(TUser user) {
+        this.user = user;
+    }
+
+    public Commodity getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
+    }
+
+    public int getSelectid() {
+        return selectid;
+    }
+
+    public void setSelectid(int selectid) {
+        this.selectid = selectid;
+    }
 }
